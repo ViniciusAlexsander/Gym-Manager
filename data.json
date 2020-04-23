@@ -1,5 +1,28 @@
 {
-  "members": [],
+  "members": [
+    {
+      "id": 1,
+      "avatar_url": "http://goaoaofa",
+      "birth": -23890291200000,
+      "name": "Vinicius Alexsander Lima Marinho",
+      "email": "viniciusalexsander1@gmail.com",
+      "gender": "M",
+      "blood": "O-",
+      "weight": "123",
+      "height": "123"
+    },
+    {
+      "id": 2,
+      "avatar_url": "https://www.instagram.com/p/B8pk3FYhEDSwBx-hp7YRcCb7yZlcixwVaUjfwc0/",
+      "birth": 801100800000,
+      "name": "Isabella C L MARINHO",
+      "email": "isabolinha@gmail.com",
+      "gender": "F",
+      "blood": "O-",
+      "weight": "80",
+      "height": "120"
+    }
+  ],
   "instructors": [
     {
       "id": 2,

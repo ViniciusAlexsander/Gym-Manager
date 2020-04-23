@@ -1,6 +1,6 @@
 const fs = require("fs");
 const data = require("../data.json");
-const { age, date } = require("../utils");
+const { date } = require("../utils");
 
 //index
 exports.index = function (req, res) {
@@ -18,13 +18,14 @@ exports.show = function (req, res) {
 
   const member = {
     ...foundMember,
-    age: age(foundMember.birth),
+    birth: date(foundMember.birth).birthDay,
   };
 
   //ele vai retorna o arquivo que está nessa pagina q foi passada como parametro
   return res.render("members/show", { member });
 };
 
+//create
 exports.create = function (req, res) {
   return res.render("members/create");
 };
@@ -39,20 +40,36 @@ exports.post = function (req, res) {
     }
   }
 
-  let { avatar_url, birth, name, services, gender } = req.body;
+  let {
+    avatar_url,
+    birth,
+    name,
+    email,
+    gender,
+    blood,
+    weight,
+    height,
+  } = req.body;
 
   birth = Date.parse(birth);
-  const created_at = Date.now();
-  const id = Number(data.members.length + 1);
+
+  let id = 1;
+  const lastMember = data.members[data.members.length - 1];
+
+  if (lastMember) {
+    id = lastMember.id + 1;
+  }
 
   data.members.push({
     id,
     avatar_url,
-    name,
     birth,
+    name,
+    email,
     gender,
-    services,
-    created_at,
+    blood,
+    weight,
+    height,
   });
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
@@ -75,7 +92,7 @@ exports.edit = function (req, res) {
 
   const member = {
     ...foundMember,
-    birth: date(foundMember.birth),
+    birth: date(foundMember.birth).iso,
   };
 
   return res.render("members/edit", { member: member });
