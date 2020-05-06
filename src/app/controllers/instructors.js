@@ -1,8 +1,11 @@
+const Instructors = require("../models/Instructor");
 const { age, date } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    return res.render("instructors/index");
+    Instructors.all(function (instructors) {
+      return res.render("instructors/index", { instructors });
+    });
   },
   create(req, res) {
     return res.render("instructors/create");
@@ -16,31 +19,19 @@ module.exports = {
       }
     }
 
-    let { avatar_url, birth, name, services, gender } = req.body;
-
-    // birth = Date.parse(birth);
-    // const created_at = Date.now();
-    // const id = Number(data.instructors.length + 1);
-
-    // data.instructors.push({
-    //   id,
-    //   avatar_url,
-    //   name,
-    //   birth,
-    //   gender,
-    //   services,
-    //   created_at,
-    // });
-
-    // fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    //   if (err) return res.send("Write file error");
-
-    //   return res.redirect(`/instructors/${id}`);
-    // });
-
-    return;
+    Instructors.create(req.body, function (instructor) {
+      return res.redirect(`/instructors/${instructor.id}`);
+    });
   },
   show(req, res) {
+    Instructors.find(req.params.id, function (instructor) {
+      if (!instructor) return res.send("Instructor not found");
+
+      instructor.age = age(instructor.birth);
+      instructor.services = instructor.services.split(",");
+      instructor.created_at = date(instructor.created_at).format;
+      return res.render(`instructors/show`, { instructor });
+    });
     return;
   },
   edit(req, res) {
