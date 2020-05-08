@@ -161,7 +161,7 @@ button[type="submit"],
 a.button {
   padding: 8px 32px;
   background-color: var(--primary-color);
-  color: black;
+  color: white;
   border-radius: 4px;
   margin-top: 32px;
   width: 100%;
@@ -245,4 +245,32 @@ tbody tr td:last-child a,
 .table-container thead tr th:last-child,
 td:last-child {
   text-align: center;
+}
+
+/* filters*/
+.table-container .header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.table-container .header a {
+  margin: 0;
+  width: 120px;
+}
+.table-container .header form {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  align-items: center;
+  grid-gap: 8px;
+}
+
+.table-container .header form input {
+  border: 1px solid #eee;
+  padding: 4px 8px;
+  box-sizing: border-box;
+}
+.table-container .header form button {
+  margin: 0;
 }
