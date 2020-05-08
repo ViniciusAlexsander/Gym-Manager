@@ -9,7 +9,7 @@ module.exports = {
     FROM instructors
     LEFT JOIN members ON (instructors.id = members.instructor_id)
     GROUP BY instructors.id 
-    ORDER BY name`,
+    ORDER BY name, total_students desc`,
       function (err, results) {
         if (err) throw `Database Error! ${err}`;
 
