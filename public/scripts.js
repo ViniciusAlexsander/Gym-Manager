@@ -37,19 +37,30 @@ function paginate(selectedPage, totalPages) {
   return pages;
 }
 
-const pagination = document.querySelector(".pagination");
-const page = +pagination.dataset.page;
-const total = +pagination.dataset.total;
-const pages = paginate(page, total);
+function createPagination(pagination) {
+  const page = +pagination.dataset.page;
+  const total = +pagination.dataset.total;
+  const pages = paginate(page, total);
+  const filter = pagination.dataset.filter;
 
-let elements = "";
+  let elements = "";
 
-for (let page of pages) {
-  if (String(page).includes("...")) {
-    elements += `<span>${page}</span>`;
-  } else {
-    elements += `<a href="?page=${page}">${page}<a/>`;
+  for (let page of pages) {
+    if (String(page).includes("...")) {
+      elements += `<span>${page}</span>`;
+    } else {
+      if (filter) {
+        elements += `<a href="?page=${page}&filter=${filter}">${page}<a/>`;
+      } else {
+        elements += `<a href="?page=${page}">${page}<a/>`;
+      }
+    }
   }
-}
 
-pagination.innerHTML = elements;
+  pagination.innerHTML = elements;
+}
+const pagination = document.querySelector(".pagination");
+
+if (pagination) {
+  createPagination(pagination);
+}
